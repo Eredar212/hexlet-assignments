@@ -23,6 +23,18 @@ class AppTest {
         expect2.add(3);
         expect2.add(10);
         assertThat(App.take(numbers2, 3)).isEqualTo(expect2); // => [7, 3, 10]
+
+        List<Integer> numbers3 = new ArrayList<>();
+        assertThat(App.take(numbers3, 3)).isEmpty(); // => []
+
+        List<Integer> numbers4 = new ArrayList<>(Arrays.asList(1, 2));
+        List<Integer> expect4 = new ArrayList<>();
+        expect4.add(1);
+        expect4.add(2);
+        assertThat(App.take(numbers4, 3)).isEqualTo(expect4); // => [1, 2]
+
+        List<Integer> numbers5 = new ArrayList<>(Arrays.asList(10));
+        assertThat(App.take(numbers5, 0)).isEmpty(); // => []
         // END
     }
 }
