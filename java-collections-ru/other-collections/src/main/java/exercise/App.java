@@ -12,8 +12,7 @@ public class App {
         Set<String> keySet = new TreeSet<>(data1.keySet());
         keySet.addAll(data2.keySet());
         return keySet.stream()
-                .map(k -> new String[]{k, getDiff(data1, data2, k)})
-                .collect(Collectors.toMap((k) -> k[0], v -> v[1], (v1, v2) -> v1, LinkedHashMap::new));
+                .collect(Collectors.toMap(k -> k, v -> getDiff(data1, data2, v), (v1, v2) -> v1, LinkedHashMap::new));
     }
     public static String getDiff(Map<String, Object> data1, Map<String, Object> data2, String key) {
         if (data1.containsKey(key) && data2.containsKey(key)) {
