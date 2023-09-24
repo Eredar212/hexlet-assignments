@@ -16,7 +16,7 @@ public class App {
     }
     public static String getDiff(Map<String, Object> data1, Map<String, Object> data2, String key) {
         if (data1.containsKey(key) && data2.containsKey(key)) {
-            if (data1.get(key).toString().equals(data2.get(key).toString())) {
+            if (data1.get(key).equals(data2.get(key))) {
                 return "unchanged";
             } else {
                 return "changed";
