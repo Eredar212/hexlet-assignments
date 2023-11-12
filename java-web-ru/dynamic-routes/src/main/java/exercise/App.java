@@ -1,6 +1,7 @@
 package exercise;
 
 import io.javalin.Javalin;
+import io.javalin.http.NotFoundResponse;
 
 import java.util.List;
 import java.util.Map;
@@ -21,13 +22,17 @@ public final class App {
 
         // BEGIN
         app.get("/companies/{id}", ctx -> {
-            List<Map<String, String>> result = COMPANIES.stream()
-                    .filter(c -> c.get("id").equals(ctx.pathParam("id"))).toList();
-            if (result.isEmpty()) {
-                ctx.status(404);
-            } else {
-                ctx.json(result.get(0));
+            var id = ctx.pathParam("id");
+            Map<String, String> company = COMPANIES.stream()
+                    .filter(c -> c.get("id").equals(id))
+                    .findFirst()
+                    .orElse(null);
+
+            if (company == null) {
+                throw new NotFoundResponse("Company not found");
             }
+
+            ctx.json(company);
         });
         app.error(404, ctx -> ctx.result("Company not found"));
         // END
